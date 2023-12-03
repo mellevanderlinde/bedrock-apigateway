@@ -51,6 +51,7 @@ export class BedrockApigatewayStack extends Stack {
           API_RESOURCE: resource,
           API_METHOD: method,
           SECRET_NAME: secret.secretName,
+          REGION: this.region,
         },
       },
     );

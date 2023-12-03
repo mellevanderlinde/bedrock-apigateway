@@ -2,12 +2,12 @@ import {
   BedrockRuntimeClient,
   InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
-import { Handler } from "aws-lambda";
+import { Handler, APIGatewayEvent } from "aws-lambda";
 
 const client = new BedrockRuntimeClient({ region: "eu-central-1" });
 
-export const handler: Handler = async (event) => {
-  const prompt = `\n\nHuman: ${event.queryStringParameters.prompt} \n\nAssistant:`;
+export const handler: Handler = async (event: APIGatewayEvent) => {
+  const prompt = `\n\nHuman: ${event.queryStringParameters?.prompt} \n\nAssistant:`;
   const input = {
     modelId: "anthropic.claude-v2",
     contentType: "application/json",
