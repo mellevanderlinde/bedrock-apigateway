@@ -13,7 +13,7 @@ npm run cdk deploy
 
 ## Call API
 
-To call the deployed API, run the following:
+To call the API, run the following:
 
 ```
 curl -X GET -G \
