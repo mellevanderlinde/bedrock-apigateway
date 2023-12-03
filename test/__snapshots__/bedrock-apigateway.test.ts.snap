@@ -714,7 +714,9 @@ exports[`Match with snapshot 1`] = `
     "SecretA720EF05": {
       "DeletionPolicy": "Delete",
       "Properties": {
-        "GenerateSecretString": {},
+        "GenerateSecretString": {
+          "ExcludePunctuation": true,
+        },
       },
       "Type": "AWS::SecretsManager::Secret",
       "UpdateReplacePolicy": "Delete",

@@ -23,3 +23,11 @@ curl -X GET -G \
 ```
 
 In the `curl` command `<ApiEndpoint>` should be the API endpoint output (which is printed in the terminal after deploying) and `<SecretValue>` should be the secret value of the secret in AWS Secrets Manager.
+
+Example response: 
+
+```
+{
+    "response": "The CEO of Amazon Web Services (AWS) is Adam Selipsky. He became CEO of AWS in 2021, replacing Andy Jassy who became CEO of Amazon."
+}
+```

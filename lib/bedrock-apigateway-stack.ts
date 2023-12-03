@@ -38,7 +38,11 @@ export class BedrockApigatewayStack extends Stack {
 
     const resource = "invoke";
     const method = "GET";
-    const secret = new secretsmanager.Secret(this, "Secret");
+    const secret = new secretsmanager.Secret(this, "Secret", {
+      generateSecretString: {
+        excludePunctuation: true,
+      },
+    });
 
     const authorization = new lambda_nodejs.NodejsFunction(
       this,
