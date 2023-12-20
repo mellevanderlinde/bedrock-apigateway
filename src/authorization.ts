@@ -8,7 +8,6 @@ const client = new SecretsManagerClient();
 
 export function getPolicyDocument(effect: string, accountId: string) {
   const apiId = process.env.API_ID;
-  const resource = process.env.API_RESOURCE;
   const method = process.env.API_METHOD;
   const region = process.env.REGION;
 
@@ -18,7 +17,7 @@ export function getPolicyDocument(effect: string, accountId: string) {
         {
           Effect: effect,
           Action: "execute-api:Invoke",
-          Resource: `arn:aws:execute-api:${region}:${accountId}:${apiId}/prod/${method}/${resource}`,
+          Resource: `arn:aws:execute-api:${region}:${accountId}:${apiId}/prod/${method}`,
         },
       ],
     },

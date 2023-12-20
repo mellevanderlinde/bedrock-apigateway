@@ -15,7 +15,6 @@ export class BedrockApigatewayStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const resource = "invoke";
     const method = "GET";
 
     const bedrockLambda = this.createBedrockLambda();
@@ -23,12 +22,11 @@ export class BedrockApigatewayStack extends Stack {
     const secret = this.createSecret();
     const authorizationLambda = this.createAuthorizationLambda(
       api.restApiId,
-      resource,
       method,
       secret.secretName,
     );
     secret.grantRead(authorizationLambda);
-    this.addRestApiResource(authorizationLambda, api, resource, method);
+    this.addRestApiMethod(authorizationLambda, api, method);
   }
 
   createBedrockLambda(): lambda.Function {
@@ -69,7 +67,6 @@ export class BedrockApigatewayStack extends Stack {
 
   createAuthorizationLambda(
     restApiId: string,
-    resource: string,
     method: string,
     secretName: string,
   ): lambda.Function {
@@ -78,7 +75,6 @@ export class BedrockApigatewayStack extends Stack {
       logRetention: logs.RetentionDays.ONE_DAY,
       environment: {
         API_ID: restApiId,
-        API_RESOURCE: resource,
         API_METHOD: method,
         SECRET_NAME: secretName,
         REGION: this.region,
@@ -86,10 +82,9 @@ export class BedrockApigatewayStack extends Stack {
     });
   }
 
-  addRestApiResource(
+  addRestApiMethod(
     authorizationLambda: lambda.Function,
     api: apigateway.RestApi,
-    resource: string,
     method: string,
   ): void {
     const authorizer = new apigateway.RequestAuthorizer(this, "Authorizer", {
@@ -97,7 +92,7 @@ export class BedrockApigatewayStack extends Stack {
       identitySources: [apigateway.IdentitySource.header("Authorization")],
     });
 
-    api.root.addResource(resource).addMethod(method, undefined, {
+    api.root.addMethod(method, undefined, {
       authorizer: authorizer,
     });
   }

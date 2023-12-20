@@ -17,12 +17,12 @@ To call the API, run the following:
 
 ```
 curl -X GET -G \
-    'https://<ApiEndpoint>.amazonaws.com/prod/invoke' \
+    'https://<ApiEndpoint>.amazonaws.com/prod' \
     --data-urlencode "prompt=Who is the CEO of AWS?" \
     --header 'Authorization: <SecretValue>'
 ```
 
-In the `curl` command `<ApiEndpoint>` should be the API endpoint output (which is printed in the terminal after deploying) and `<SecretValue>` should be the secret value of the secret in AWS Secrets Manager.
+In the `curl` command `<ApiEndpoint>` should be the API endpoint output (which is printed in the terminal after deployment) and `<SecretValue>` should be the secret value of the secret in AWS Secrets Manager.
 
 Example response: 
 
