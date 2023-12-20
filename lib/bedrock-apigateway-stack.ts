@@ -19,7 +19,7 @@ export class BedrockApigatewayStack extends Stack {
     const method = "GET";
 
     const bedrockLambda = this.createBedrockLambda();
-    const api = this.createApi(bedrockLambda);
+    const api = this.createRestApi(bedrockLambda);
     const secret = this.createSecret();
     const authorizationLambda = this.createAuthorizationLambda(
       api.restApiId,
@@ -28,7 +28,7 @@ export class BedrockApigatewayStack extends Stack {
       secret.secretName,
     );
     secret.grantRead(authorizationLambda);
-    this.createResource(authorizationLambda, api, resource, method);
+    this.addRestApiResource(authorizationLambda, api, resource, method);
   }
 
   createBedrockLambda(): lambda.Function {
@@ -52,7 +52,7 @@ export class BedrockApigatewayStack extends Stack {
     return bedrockLambda;
   }
 
-  createApi(bedrockLambda: lambda.Function): apigateway.RestApi {
+  createRestApi(bedrockLambda: lambda.Function): apigateway.RestApi {
     return new apigateway.LambdaRestApi(this, "BedrockApi", {
       handler: bedrockLambda,
       proxy: false,
@@ -86,7 +86,7 @@ export class BedrockApigatewayStack extends Stack {
     });
   }
 
-  createResource(
+  addRestApiResource(
     authorizationLambda: lambda.Function,
     api: apigateway.RestApi,
     resource: string,
