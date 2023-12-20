@@ -15,11 +15,10 @@ export class BedrockApigatewayStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const method = "GET";
-
     const bedrockLambda = this.createBedrockLambda();
     const api = this.createRestApi(bedrockLambda);
     const secret = this.createSecret();
+    const method = "GET";
     const authorizationLambda = this.createAuthorizationLambda(
       api.restApiId,
       method,
