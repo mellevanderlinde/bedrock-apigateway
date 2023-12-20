@@ -17,7 +17,7 @@ export function getPolicyDocument(effect: string, accountId: string) {
         {
           Effect: effect,
           Action: "execute-api:Invoke",
-          Resource: `arn:aws:execute-api:${region}:${accountId}:${apiId}/prod/${method}`,
+          Resource: `arn:aws:execute-api:${region}:${accountId}:${apiId}/prod/${method}/*`,
         },
       ],
     },
