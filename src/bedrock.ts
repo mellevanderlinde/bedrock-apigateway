@@ -19,6 +19,7 @@ export const handler: Handler = async (event: APIGatewayEvent) => {
   };
   const response = await client.send(new InvokeModelCommand(input));
   return {
+    statusCode: 200,
     body: JSON.stringify({
       response: JSON.parse(response.body.transformToString())["completion"],
     }),
