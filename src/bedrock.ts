@@ -9,7 +9,7 @@ const client = new BedrockRuntimeClient({ region: "eu-central-1" });
 export const handler: Handler = async (event: APIGatewayEvent) => {
   const prompt = `\n\nHuman: ${event.queryStringParameters?.prompt} \n\nAssistant:`;
   const input = {
-    modelId: "anthropic.claude-v2",
+    modelId: process.env.MODEL_ID,
     contentType: "application/json",
     accept: "application/json",
     body: JSON.stringify({

@@ -317,11 +317,12 @@ exports[`Match with snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "238ec836c84fff08f151a3c8e4032a9254d1e1b0e46b1ce396f6582b1d19da9a.zip",
+          "S3Key": "31f193df5a8c74d488f76c4659ec60f89a2135a7d3271419bfcf78d9fdb22c59.zip",
         },
         "Environment": {
           "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "MODEL_ID": "anthropic.claude-v2:1",
           },
         },
         "Handler": "index.handler",
@@ -604,7 +605,7 @@ exports[`Match with snapshot 1`] = `
             {
               "Action": "bedrock:InvokeModel",
               "Effect": "Allow",
-              "Resource": "arn:aws:bedrock:eu-central-1::foundation-model/anthropic.claude-v2",
+              "Resource": "arn:aws:bedrock:eu-central-1::foundation-model/anthropic.claude-v2:1",
             },
           ],
           "Version": "2012-10-17",

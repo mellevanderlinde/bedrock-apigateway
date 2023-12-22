@@ -15,7 +15,8 @@ export class BedrockApigatewayStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const bedrockLambda = this.createBedrockLambda();
+    const modelId = "anthropic.claude-v2:1";
+    const bedrockLambda = this.createBedrockLambda(modelId);
     const api = this.createRestApi(bedrockLambda);
     const secret = this.createSecret();
     const method = "GET";
@@ -28,12 +29,13 @@ export class BedrockApigatewayStack extends Stack {
     this.addRestApiMethod(authorizationLambda, api, method);
   }
 
-  createBedrockLambda(): lambda.Function {
+  createBedrockLambda(modelId: string): lambda.Function {
     const bedrockLambda = new lambda_nodejs.NodejsFunction(this, "Bedrock", {
       entry: "src/bedrock.ts",
       timeout: Duration.seconds(30),
       memorySize: 256,
       logRetention: logs.RetentionDays.ONE_DAY,
+      environment: { MODEL_ID: modelId },
     });
 
     bedrockLambda.addToRolePolicy(
@@ -41,7 +43,7 @@ export class BedrockApigatewayStack extends Stack {
         effect: iam.Effect.ALLOW,
         actions: ["bedrock:InvokeModel"],
         resources: [
-          "arn:aws:bedrock:eu-central-1::foundation-model/anthropic.claude-v2",
+          `arn:aws:bedrock:eu-central-1::foundation-model/${modelId}`,
         ],
       }),
     );
