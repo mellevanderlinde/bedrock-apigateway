@@ -53,7 +53,7 @@ export class BedrockApigatewayStack extends Stack {
   }
 
   createUserPool(): cognito.UserPool {
-    return new cognito.UserPool(this, "UserPool", {
+    const userPool = new cognito.UserPool(this, "UserPool", {
       signInAliases: {
         email: true,
         username: false,
@@ -61,6 +61,20 @@ export class BedrockApigatewayStack extends Stack {
       selfSignUpEnabled: true,
       removalPolicy: RemovalPolicy.DESTROY,
     });
+
+    userPool.addClient("Client", {
+      authFlows: {
+        adminUserPassword: true,
+      },
+    });
+
+    userPool.addDomain("Domain", {
+      cognitoDomain: {
+        domainPrefix: "bedrock-apigateway",
+      },
+    });
+
+    return userPool;
   }
 
   addApiAuthorizer(
