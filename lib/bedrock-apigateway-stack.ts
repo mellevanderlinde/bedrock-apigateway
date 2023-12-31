@@ -19,10 +19,8 @@ export class BedrockApigatewayStack extends Stack {
     const modelId = "anthropic.claude-v2:1";
     const region = "eu-central-1";
     const handler = this.createLambda(modelId, region);
-    const api = this.createApi(handler);
     const userPool = this.createUserPool();
-    const method = "GET";
-    this.addApiAuthorizer(userPool, api, method);
+    this.createApi(handler, userPool);
   }
 
   createLambda(modelId: string, region: string): lambda.Function {
@@ -43,13 +41,6 @@ export class BedrockApigatewayStack extends Stack {
     );
 
     return handler;
-  }
-
-  createApi(handler: lambda.Function): apigateway.RestApi {
-    return new apigateway.LambdaRestApi(this, "Api", {
-      handler,
-      proxy: false,
-    });
   }
 
   createUserPool(): cognito.UserPool {
@@ -77,11 +68,10 @@ export class BedrockApigatewayStack extends Stack {
     return userPool;
   }
 
-  addApiAuthorizer(
+  createApi(
+    handler: lambda.Function,
     userPool: cognito.UserPool,
-    api: apigateway.RestApi,
-    method: string,
-  ): void {
+  ): apigateway.RestApi {
     const authorizer = new apigateway.CognitoUserPoolsAuthorizer(
       this,
       "Authorizer",
@@ -90,9 +80,16 @@ export class BedrockApigatewayStack extends Stack {
       },
     );
 
-    api.root.addMethod(method, undefined, {
+    const api = new apigateway.LambdaRestApi(this, "Api", {
+      handler,
+      proxy: false,
+    });
+
+    api.root.addMethod("GET", undefined, {
       authorizer,
       authorizationType: apigateway.AuthorizationType.COGNITO,
     });
+
+    return api;
   }
 }
