@@ -2,11 +2,13 @@ import {
   Stack,
   StackProps,
   Duration,
+  RemovalPolicy,
   aws_lambda as lambda,
   aws_lambda_nodejs as lambda_nodejs,
   aws_logs as logs,
   aws_iam as iam,
   aws_apigateway as apigateway,
+  aws_cognito as cognito,
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
@@ -18,8 +20,9 @@ export class BedrockApigatewayStack extends Stack {
     const region = "eu-central-1";
     const handler = this.createLambda(modelId, region);
     const api = this.createApi(handler);
+    const userPool = this.createUserPool();
     const method = "GET";
-    this.addApiMethod(api, method);
+    this.addApiAuthorizer(userPool, api, method);
   }
 
   createLambda(modelId: string, region: string): lambda.Function {
@@ -49,7 +52,33 @@ export class BedrockApigatewayStack extends Stack {
     });
   }
 
-  addApiMethod(api: apigateway.RestApi, method: string): void {
-    api.root.addMethod(method);
+  createUserPool(): cognito.UserPool {
+    return new cognito.UserPool(this, "UserPool", {
+      signInAliases: {
+        email: true,
+        username: false,
+      },
+      selfSignUpEnabled: true,
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+  }
+
+  addApiAuthorizer(
+    userPool: cognito.UserPool,
+    api: apigateway.RestApi,
+    method: string,
+  ): void {
+    const authorizer = new apigateway.CognitoUserPoolsAuthorizer(
+      this,
+      "Authorizer",
+      {
+        cognitoUserPools: [userPool],
+      },
+    );
+
+    api.root.addMethod(method, undefined, {
+      authorizer: authorizer,
+      authorizationType: apigateway.AuthorizationType.COGNITO,
+    });
   }
 }
