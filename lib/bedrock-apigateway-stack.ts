@@ -2,12 +2,13 @@ import {
   Stack,
   StackProps,
   Duration,
+  RemovalPolicy,
   aws_lambda as lambda,
   aws_lambda_nodejs as lambda_nodejs,
   aws_logs as logs,
   aws_iam as iam,
   aws_apigateway as apigateway,
-  aws_secretsmanager as secretsmanager,
+  aws_cognito as cognito,
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
@@ -17,29 +18,23 @@ export class BedrockApigatewayStack extends Stack {
 
     const modelId = "anthropic.claude-v2:1";
     const region = "eu-central-1";
-    const bedrockLambda = this.createBedrockLambda(modelId, region);
-    const api = this.createRestApi(bedrockLambda);
-    const secret = this.createSecret();
+    const handler = this.createLambda(modelId, region);
+    const api = this.createApi(handler);
+    const userPool = this.createUserPool();
     const method = "GET";
-    const authorizationLambda = this.createAuthorizationLambda(
-      api.restApiId,
-      method,
-      secret.secretName,
-    );
-    secret.grantRead(authorizationLambda);
-    this.addRestApiMethod(authorizationLambda, api, method);
+    this.addApiAuthorizer(userPool, api, method);
   }
 
-  createBedrockLambda(modelId: string, region: string): lambda.Function {
-    const bedrockLambda = new lambda_nodejs.NodejsFunction(this, "Bedrock", {
-      entry: "src/bedrock.ts",
+  createLambda(modelId: string, region: string): lambda.Function {
+    const handler = new lambda_nodejs.NodejsFunction(this, "Lambda", {
+      entry: "src/index.ts",
       timeout: Duration.seconds(30),
       memorySize: 256,
       logRetention: logs.RetentionDays.ONE_DAY,
       environment: { MODEL_ID: modelId, REGION: region },
     });
 
-    bedrockLambda.addToRolePolicy(
+    handler.addToRolePolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
         actions: ["bedrock:InvokeModel"],
@@ -47,53 +42,57 @@ export class BedrockApigatewayStack extends Stack {
       }),
     );
 
-    return bedrockLambda;
+    return handler;
   }
 
-  createRestApi(bedrockLambda: lambda.Function): apigateway.RestApi {
-    return new apigateway.LambdaRestApi(this, "BedrockApi", {
-      handler: bedrockLambda,
+  createApi(handler: lambda.Function): apigateway.RestApi {
+    return new apigateway.LambdaRestApi(this, "Api", {
+      handler,
       proxy: false,
     });
   }
 
-  createSecret(): secretsmanager.Secret {
-    return new secretsmanager.Secret(this, "Secret", {
-      generateSecretString: {
-        excludePunctuation: true,
+  createUserPool(): cognito.UserPool {
+    const userPool = new cognito.UserPool(this, "UserPool", {
+      signInAliases: {
+        email: true,
+        username: false,
+      },
+      selfSignUpEnabled: true,
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+
+    userPool.addClient("Client", {
+      authFlows: {
+        adminUserPassword: true,
       },
     });
-  }
 
-  createAuthorizationLambda(
-    restApiId: string,
-    method: string,
-    secretName: string,
-  ): lambda.Function {
-    return new lambda_nodejs.NodejsFunction(this, "Authorization", {
-      entry: "src/authorization.ts",
-      logRetention: logs.RetentionDays.ONE_DAY,
-      environment: {
-        API_ID: restApiId,
-        API_METHOD: method,
-        SECRET_NAME: secretName,
-        REGION: this.region,
+    userPool.addDomain("Domain", {
+      cognitoDomain: {
+        domainPrefix: "bedrock-apigateway",
       },
     });
+
+    return userPool;
   }
 
-  addRestApiMethod(
-    authorizationLambda: lambda.Function,
+  addApiAuthorizer(
+    userPool: cognito.UserPool,
     api: apigateway.RestApi,
     method: string,
   ): void {
-    const authorizer = new apigateway.RequestAuthorizer(this, "Authorizer", {
-      handler: authorizationLambda,
-      identitySources: [apigateway.IdentitySource.header("Authorization")],
-    });
+    const authorizer = new apigateway.CognitoUserPoolsAuthorizer(
+      this,
+      "Authorizer",
+      {
+        cognitoUserPools: [userPool],
+      },
+    );
 
     api.root.addMethod(method, undefined, {
-      authorizer: authorizer,
+      authorizer,
+      authorizationType: apigateway.AuthorizationType.COGNITO,
     });
   }
 }
