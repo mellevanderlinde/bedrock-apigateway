@@ -91,7 +91,7 @@ export class BedrockApigatewayStack extends Stack {
     );
 
     api.root.addMethod(method, undefined, {
-      authorizer: authorizer,
+      authorizer,
       authorizationType: apigateway.AuthorizationType.COGNITO,
     });
   }
