@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.462.0",
-    "@aws-sdk/client-secrets-manager": "^3.462.0",
     "@types/aws-lambda": "^8.10.130",
     "aws-cdk-lib": "^2.112.0",
     "constructs": "^10.0.0",

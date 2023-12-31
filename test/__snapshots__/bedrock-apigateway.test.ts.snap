@@ -3,14 +3,14 @@
 exports[`Match with snapshot 1`] = `
 {
   "Outputs": {
-    "BedrockApiEndpoint0AF79013": {
+    "ApiEndpoint4F160690": {
       "Value": {
         "Fn::Join": [
           "",
           [
             "https://",
             {
-              "Ref": "BedrockApi7EC59F6D",
+              "Ref": "ApiF70053CD",
             },
             ".execute-api.",
             {
@@ -22,7 +22,7 @@ exports[`Match with snapshot 1`] = `
             },
             "/",
             {
-              "Ref": "BedrockApiDeploymentStageprodE6A4312F",
+              "Ref": "ApiDeploymentStageprod3EB9684E",
             },
             "/",
           ],
@@ -38,322 +38,15 @@ exports[`Match with snapshot 1`] = `
     },
   },
   "Resources": {
-    "AuthorizationAE2C3694": {
-      "DependsOn": [
-        "AuthorizationServiceRoleDefaultPolicy1A519AE6",
-        "AuthorizationServiceRole8A9BA832",
-      ],
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
-          },
-          "S3Key": "5b115373791dbcbce1164e314dac16a6e01a3e483fc3b4ccbf0b7fc44b7d40a9.zip",
-        },
-        "Environment": {
-          "Variables": {
-            "API_ID": {
-              "Ref": "BedrockApi7EC59F6D",
-            },
-            "API_METHOD": "GET",
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "REGION": {
-              "Ref": "AWS::Region",
-            },
-            "SECRET_NAME": {
-              "Fn::Join": [
-                "-",
-                [
-                  {
-                    "Fn::Select": [
-                      0,
-                      {
-                        "Fn::Split": [
-                          "-",
-                          {
-                            "Fn::Select": [
-                              6,
-                              {
-                                "Fn::Split": [
-                                  ":",
-                                  {
-                                    "Ref": "SecretA720EF05",
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    "Fn::Select": [
-                      1,
-                      {
-                        "Fn::Split": [
-                          "-",
-                          {
-                            "Fn::Select": [
-                              6,
-                              {
-                                "Fn::Split": [
-                                  ":",
-                                  {
-                                    "Ref": "SecretA720EF05",
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              ],
-            },
-          },
-        },
-        "Handler": "index.handler",
-        "Role": {
-          "Fn::GetAtt": [
-            "AuthorizationServiceRole8A9BA832",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs16.x",
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "AuthorizationLogRetention20D3EB56": {
-      "Properties": {
-        "LogGroupName": {
-          "Fn::Join": [
-            "",
-            [
-              "/aws/lambda/",
-              {
-                "Ref": "AuthorizationAE2C3694",
-              },
-            ],
-          ],
-        },
-        "RetentionInDays": 1,
-        "ServiceToken": {
-          "Fn::GetAtt": [
-            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "Custom::LogRetention",
-    },
-    "AuthorizationServiceRole8A9BA832": {
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "AuthorizationServiceRoleDefaultPolicy1A519AE6": {
-      "Properties": {
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": [
-                "secretsmanager:GetSecretValue",
-                "secretsmanager:DescribeSecret",
-              ],
-              "Effect": "Allow",
-              "Resource": {
-                "Ref": "SecretA720EF05",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "AuthorizationServiceRoleDefaultPolicy1A519AE6",
-        "Roles": [
-          {
-            "Ref": "AuthorizationServiceRole8A9BA832",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "AuthorizationTestBedrockApigatewayStackAuthorizerFEB43F63PermissionsE7E2F0E8": {
-      "Properties": {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "AuthorizationAE2C3694",
-            "Arn",
-          ],
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition",
-              },
-              ":execute-api:",
-              {
-                "Ref": "AWS::Region",
-              },
-              ":",
-              {
-                "Ref": "AWS::AccountId",
-              },
-              ":",
-              {
-                "Ref": "BedrockApi7EC59F6D",
-              },
-              "/authorizers/",
-              {
-                "Ref": "AuthorizerBD825682",
-              },
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "AuthorizerBD825682": {
-      "Properties": {
-        "AuthorizerResultTtlInSeconds": 300,
-        "AuthorizerUri": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Fn::Select": [
-                  1,
-                  {
-                    "Fn::Split": [
-                      ":",
-                      {
-                        "Fn::GetAtt": [
-                          "AuthorizationAE2C3694",
-                          "Arn",
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-              ":apigateway:",
-              {
-                "Fn::Select": [
-                  3,
-                  {
-                    "Fn::Split": [
-                      ":",
-                      {
-                        "Fn::GetAtt": [
-                          "AuthorizationAE2C3694",
-                          "Arn",
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-              ":lambda:path/2015-03-31/functions/",
-              {
-                "Fn::GetAtt": [
-                  "AuthorizationAE2C3694",
-                  "Arn",
-                ],
-              },
-              "/invocations",
-            ],
-          ],
-        },
-        "IdentitySource": "method.request.header.Authorization",
-        "Name": "TestBedrockApigatewayStackAuthorizerFEB43F63",
-        "RestApiId": {
-          "Ref": "BedrockApi7EC59F6D",
-        },
-        "Type": "REQUEST",
-      },
-      "Type": "AWS::ApiGateway::Authorizer",
-    },
-    "Bedrock1F578EB3": {
-      "DependsOn": [
-        "BedrockServiceRoleDefaultPolicyD0D91EE2",
-        "BedrockServiceRole290DC93B",
-      ],
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
-          },
-          "S3Key": "eb24d3e85a26a0d39fb3760d84ae0e7f343ab8770d8682c7b8f1dfdbc9fc5034.zip",
-        },
-        "Environment": {
-          "Variables": {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "MODEL_ID": "anthropic.claude-v2:1",
-            "REGION": "eu-central-1",
-          },
-        },
-        "Handler": "index.handler",
-        "MemorySize": 256,
-        "Role": {
-          "Fn::GetAtt": [
-            "BedrockServiceRole290DC93B",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs16.x",
-        "Timeout": 30,
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "BedrockApi7EC59F6D": {
-      "Properties": {
-        "Name": "BedrockApi",
-      },
-      "Type": "AWS::ApiGateway::RestApi",
-    },
-    "BedrockApiAccount7733BA59": {
+    "ApiAccountA18C9B29": {
       "DeletionPolicy": "Retain",
       "DependsOn": [
-        "BedrockApi7EC59F6D",
+        "ApiF70053CD",
       ],
       "Properties": {
         "CloudWatchRoleArn": {
           "Fn::GetAtt": [
-            "BedrockApiCloudWatchRole634E5E8A",
+            "ApiCloudWatchRole73EC6FC4",
             "Arn",
           ],
         },
@@ -361,7 +54,7 @@ exports[`Match with snapshot 1`] = `
       "Type": "AWS::ApiGateway::Account",
       "UpdateReplacePolicy": "Retain",
     },
-    "BedrockApiCloudWatchRole634E5E8A": {
+    "ApiCloudWatchRole73EC6FC4": {
       "DeletionPolicy": "Retain",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -394,39 +87,42 @@ exports[`Match with snapshot 1`] = `
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
-    "BedrockApiDeployment7919E4198b10b3e1aa9d96b4d5683282e60ee891": {
+    "ApiDeploymentB17BE62Df39719b213c714fd7775e7870ea5679f": {
       "DependsOn": [
-        "BedrockApiGET27D203D7",
+        "ApiGET9257B917",
       ],
       "Properties": {
         "Description": "Automatically created by the RestApi construct",
         "RestApiId": {
-          "Ref": "BedrockApi7EC59F6D",
+          "Ref": "ApiF70053CD",
         },
       },
       "Type": "AWS::ApiGateway::Deployment",
     },
-    "BedrockApiDeploymentStageprodE6A4312F": {
+    "ApiDeploymentStageprod3EB9684E": {
       "DependsOn": [
-        "BedrockApiAccount7733BA59",
+        "ApiAccountA18C9B29",
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "BedrockApiDeployment7919E4198b10b3e1aa9d96b4d5683282e60ee891",
+          "Ref": "ApiDeploymentB17BE62Df39719b213c714fd7775e7870ea5679f",
         },
         "RestApiId": {
-          "Ref": "BedrockApi7EC59F6D",
+          "Ref": "ApiF70053CD",
         },
         "StageName": "prod",
       },
       "Type": "AWS::ApiGateway::Stage",
     },
-    "BedrockApiGET27D203D7": {
+    "ApiF70053CD": {
       "Properties": {
-        "AuthorizationType": "CUSTOM",
-        "AuthorizerId": {
-          "Ref": "AuthorizerBD825682",
-        },
+        "Name": "Api",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "ApiGET9257B917": {
+      "Properties": {
+        "AuthorizationType": "NONE",
         "HttpMethod": "GET",
         "Integration": {
           "IntegrationHttpMethod": "POST",
@@ -446,7 +142,7 @@ exports[`Match with snapshot 1`] = `
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "Bedrock1F578EB3",
+                    "LambdaD247545B",
                     "Arn",
                   ],
                 },
@@ -457,22 +153,22 @@ exports[`Match with snapshot 1`] = `
         },
         "ResourceId": {
           "Fn::GetAtt": [
-            "BedrockApi7EC59F6D",
+            "ApiF70053CD",
             "RootResourceId",
           ],
         },
         "RestApiId": {
-          "Ref": "BedrockApi7EC59F6D",
+          "Ref": "ApiF70053CD",
         },
       },
       "Type": "AWS::ApiGateway::Method",
     },
-    "BedrockApiGETApiPermissionTestBedrockApigatewayStackBedrockApiABBD19F1GET624EFEDF": {
+    "ApiGETApiPermissionTestBedrockApigatewayStackApi3A7CC660GETF0F7D911": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
           "Fn::GetAtt": [
-            "Bedrock1F578EB3",
+            "LambdaD247545B",
             "Arn",
           ],
         },
@@ -495,11 +191,11 @@ exports[`Match with snapshot 1`] = `
               },
               ":",
               {
-                "Ref": "BedrockApi7EC59F6D",
+                "Ref": "ApiF70053CD",
               },
               "/",
               {
-                "Ref": "BedrockApiDeploymentStageprodE6A4312F",
+                "Ref": "ApiDeploymentStageprod3EB9684E",
               },
               "/GET/",
             ],
@@ -508,12 +204,12 @@ exports[`Match with snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "BedrockApiGETApiPermissionTestTestBedrockApigatewayStackBedrockApiABBD19F1GET2EE63E20": {
+    "ApiGETApiPermissionTestTestBedrockApigatewayStackApi3A7CC660GET970B4DF0": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
           "Fn::GetAtt": [
-            "Bedrock1F578EB3",
+            "LambdaD247545B",
             "Arn",
           ],
         },
@@ -536,7 +232,7 @@ exports[`Match with snapshot 1`] = `
               },
               ":",
               {
-                "Ref": "BedrockApi7EC59F6D",
+                "Ref": "ApiF70053CD",
               },
               "/test-invoke-stage/GET/",
             ],
@@ -545,7 +241,39 @@ exports[`Match with snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "BedrockLogRetention7C92EB04": {
+    "LambdaD247545B": {
+      "DependsOn": [
+        "LambdaServiceRoleDefaultPolicyDAE46E21",
+        "LambdaServiceRoleA8ED4D3B",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "d50cf0f30d49d5e08e6354029be7adf696aa63222e9525c5abe3d41e2bf64a0c.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "MODEL_ID": "anthropic.claude-v2:1",
+            "REGION": "eu-central-1",
+          },
+        },
+        "Handler": "index.handler",
+        "MemorySize": 256,
+        "Role": {
+          "Fn::GetAtt": [
+            "LambdaServiceRoleA8ED4D3B",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+        "Timeout": 30,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "LambdaLogRetentionDBDA6BEA": {
       "Properties": {
         "LogGroupName": {
           "Fn::Join": [
@@ -553,7 +281,7 @@ exports[`Match with snapshot 1`] = `
             [
               "/aws/lambda/",
               {
-                "Ref": "Bedrock1F578EB3",
+                "Ref": "LambdaD247545B",
               },
             ],
           ],
@@ -568,7 +296,7 @@ exports[`Match with snapshot 1`] = `
       },
       "Type": "Custom::LogRetention",
     },
-    "BedrockServiceRole290DC93B": {
+    "LambdaServiceRoleA8ED4D3B": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -599,7 +327,7 @@ exports[`Match with snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "BedrockServiceRoleDefaultPolicyD0D91EE2": {
+    "LambdaServiceRoleDefaultPolicyDAE46E21": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -611,10 +339,10 @@ exports[`Match with snapshot 1`] = `
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "BedrockServiceRoleDefaultPolicyD0D91EE2",
+        "PolicyName": "LambdaServiceRoleDefaultPolicyDAE46E21",
         "Roles": [
           {
-            "Ref": "BedrockServiceRole290DC93B",
+            "Ref": "LambdaServiceRoleA8ED4D3B",
           },
         ],
       },
@@ -698,16 +426,6 @@ exports[`Match with snapshot 1`] = `
         ],
       },
       "Type": "AWS::IAM::Policy",
-    },
-    "SecretA720EF05": {
-      "DeletionPolicy": "Delete",
-      "Properties": {
-        "GenerateSecretString": {
-          "ExcludePunctuation": true,
-        },
-      },
-      "Type": "AWS::SecretsManager::Secret",
-      "UpdateReplacePolicy": "Delete",
     },
   },
   "Rules": {
