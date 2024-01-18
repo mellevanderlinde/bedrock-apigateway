@@ -4,7 +4,7 @@ import {
 } from "@aws-sdk/client-bedrock-runtime";
 import { Handler, APIGatewayEvent } from "aws-lambda";
 
-const client = new BedrockRuntimeClient({ region: process.env.REGION });
+const client = new BedrockRuntimeClient();
 
 export const handler: Handler = async (event: APIGatewayEvent) => {
   const prompt = `\n\nHuman: ${event.queryStringParameters?.prompt} \n\nAssistant:`;

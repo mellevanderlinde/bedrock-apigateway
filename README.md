@@ -11,6 +11,8 @@ npm install
 npm run cdk deploy 
 ```
 
+Please be aware that the CloudFormation stack is deployed in the `eu-central-1` region, as Bedrock is currently unavailable in certain regions.
+
 ## Call API
 
 To call the API, run the following:
