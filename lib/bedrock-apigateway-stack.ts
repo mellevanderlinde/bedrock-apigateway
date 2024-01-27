@@ -28,12 +28,17 @@ export class BedrockApigatewayStack extends Stack {
   }
 
   createLambda(model: bedrock.FoundationModel): lambda.Function {
+    const logGroup = new logs.LogGroup(this, "LogGroup", {
+      retention: logs.RetentionDays.ONE_DAY,
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+
     const handler = new lambda_nodejs.NodejsFunction(this, "Lambda", {
       entry: "src/index.ts",
       timeout: Duration.seconds(30),
       memorySize: 256,
-      logRetention: logs.RetentionDays.ONE_DAY,
       environment: { MODEL_ID: model.modelId },
+      logGroup,
     });
 
     handler.addToRolePolicy(
