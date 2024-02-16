@@ -15,7 +15,6 @@ export const handler: Handler = async (event: APIGatewayEvent) => {
   }
 
   const prompt = `\n\nHuman: ${event.queryStringParameters.prompt} \n\nAssistant:`;
-
   const input = {
     modelId: process.env.MODEL_ID,
     contentType: "application/json",
@@ -25,7 +24,6 @@ export const handler: Handler = async (event: APIGatewayEvent) => {
       max_tokens_to_sample: 100,
     }),
   };
-
   const response = await client.send(new InvokeModelCommand(input));
 
   return {
