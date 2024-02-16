@@ -20,7 +20,7 @@ To call the API, run the following:
 ```
 curl -X GET -G \
     'https://<ApiEndpoint>.amazonaws.com/prod' \
-    --data-urlencode "prompt=Who is the CEO of AWS?" \
+    --data-urlencode 'prompt=Who is the CEO of AWS?' \
     --header 'Authorization: <IdToken>'
 ```
 
@@ -29,7 +29,5 @@ In the `curl` command `<ApiEndpoint>` should be the API endpoint output (which i
 Example response: 
 
 ```
-{
-    "response": "The CEO of Amazon Web Services (AWS) is Adam Selipsky. He became CEO of AWS in 2021, replacing Andy Jassy who became CEO of Amazon."
-}
+The CEO of Amazon Web Services (AWS) is Adam Selipsky. He became CEO of AWS in 2021, replacing Andy Jassy who became CEO of Amazon.
 ```

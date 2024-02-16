@@ -7,7 +7,14 @@ import { Handler, APIGatewayEvent } from "aws-lambda";
 const client = new BedrockRuntimeClient();
 
 export const handler: Handler = async (event: APIGatewayEvent) => {
-  const prompt = `\n\nHuman: ${event.queryStringParameters?.prompt} \n\nAssistant:`;
+  if (!event.queryStringParameters?.prompt) {
+    return {
+      statusCode: 400,
+      body: "Prompt is missing",
+    };
+  }
+
+  const prompt = `\n\nHuman: ${event.queryStringParameters.prompt} \n\nAssistant:`;
 
   const input = {
     modelId: process.env.MODEL_ID,
@@ -23,8 +30,6 @@ export const handler: Handler = async (event: APIGatewayEvent) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify({
-      response: JSON.parse(response.body.transformToString())["completion"],
-    }),
+    body: JSON.parse(response.body.transformToString())["completion"],
   };
 };
