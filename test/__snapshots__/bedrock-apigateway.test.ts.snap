@@ -273,11 +273,10 @@ exports[`Match with snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "33716dfcbaddcbcd9a9ef4da82b0224076a331c4db007707e5f693c6bf41310f.zip",
+          "S3Key": "7f3f83174f8ed69fdbd07e21bae4946a575fd0daee563efda11ef470d24c294e.zip",
         },
         "Environment": {
           "Variables": {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
             "MODEL_ID": "anthropic.claude-v2:1",
           },
         },
@@ -294,7 +293,7 @@ exports[`Match with snapshot 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 30,
       },
       "Type": "AWS::Lambda::Function",
