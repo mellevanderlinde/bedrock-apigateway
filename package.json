@@ -7,9 +7,9 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "npm run build && jest",
-    "test:update": "npm run build && jest -u",
     "cdk": "cdk",
+    "test": "jest",
+    "test:update": "jest -u",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
   },
