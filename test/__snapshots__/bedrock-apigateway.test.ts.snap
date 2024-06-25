@@ -273,11 +273,11 @@ exports[`Match with snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "fce3797e7e90c8327a7b5aa71f77c1eb7ba8164a220f789ae8c9853dbac8e1f2.zip",
+          "S3Key": "7bde3b892e658d4e6ee85cfd124f13a4a204178c2c4886144582a809026a8d76.zip",
         },
         "Environment": {
           "Variables": {
-            "MODEL_ID": "anthropic.claude-v2:1",
+            "MODEL_ID": "anthropic.claude-3-haiku-20240307-v1:0",
           },
         },
         "Handler": "index.handler",
@@ -340,15 +340,11 @@ exports[`Match with snapshot 1`] = `
                 "Fn::Join": [
                   "",
                   [
-                    "arn:",
-                    {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":bedrock:",
+                    "arn:aws:bedrock:",
                     {
                       "Ref": "AWS::Region",
                     },
-                    "::foundation-model/anthropic.claude-v2:1",
+                    "::foundation-model/anthropic.claude-3-haiku-20240307-v1:0",
                   ],
                 ],
               },

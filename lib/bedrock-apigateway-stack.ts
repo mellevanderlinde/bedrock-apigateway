@@ -8,7 +8,6 @@ import {
   aws_iam as iam,
   aws_apigateway as apigateway,
   aws_cognito as cognito,
-  aws_bedrock as bedrock,
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
@@ -16,17 +15,13 @@ export class BedrockApigatewayStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const model = bedrock.FoundationModel.fromFoundationModelId(
-      this,
-      "Model",
-      bedrock.FoundationModelIdentifier.ANTHROPIC_CLAUDE_V2_1,
-    );
-    const handler = this.createLambda(model);
+    const modelId = "anthropic.claude-3-haiku-20240307-v1:0";
+    const handler = this.createLambda(modelId);
     const userPool = this.createUserPool();
     this.createApi(handler, userPool);
   }
 
-  createLambda(model: bedrock.FoundationModel): lambda.Function {
+  createLambda(modelId: string): lambda.Function {
     const logGroup = new logs.LogGroup(this, "LogGroup", {
       retention: logs.RetentionDays.ONE_DAY,
       removalPolicy: RemovalPolicy.DESTROY,
@@ -38,14 +33,16 @@ export class BedrockApigatewayStack extends Stack {
       runtime: lambda.Runtime.NODEJS_20_X,
       timeout: Duration.seconds(30),
       memorySize: 256,
-      environment: { MODEL_ID: model.modelId },
+      environment: { MODEL_ID: modelId },
       logGroup,
     });
 
     handler.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ["bedrock:InvokeModel"],
-        resources: [model.modelArn],
+        resources: [
+          `arn:aws:bedrock:${this.region}::foundation-model/${modelId}`,
+        ],
       }),
     );
 
