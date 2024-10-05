@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Match with snapshot 1`] = `
+exports[`should match with snapshot 1`] = `
 {
   "Outputs": {
     "ApiEndpoint4F160690": {
@@ -166,7 +166,7 @@ exports[`Match with snapshot 1`] = `
       },
       "Type": "AWS::ApiGateway::Method",
     },
-    "ApiPOSTApiPermissionTestBedrockApigatewayStackApi3A7CC660POST8F8802F0": {
+    "ApiPOSTApiPermissionStackApiDBBEC0DBPOST637FF6AF": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -207,7 +207,7 @@ exports[`Match with snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "ApiPOSTApiPermissionTestTestBedrockApigatewayStackApi3A7CC660POST55CC12B9": {
+    "ApiPOSTApiPermissionTestStackApiDBBEC0DBPOST5D85DE27": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -247,7 +247,7 @@ exports[`Match with snapshot 1`] = `
     "AuthorizerBD825682": {
       "Properties": {
         "IdentitySource": "method.request.header.Authorization",
-        "Name": "TestBedrockApigatewayStackAuthorizerFEB43F63",
+        "Name": "StackAuthorizer14903EF1",
         "ProviderARNs": [
           {
             "Fn::GetAtt": [
@@ -273,7 +273,7 @@ exports[`Match with snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "3be774514e95b6d74e69b8e5e89d55b7afbdaea6315e37de0d8a9ec902086c12.zip",
+          "S3Key": "129951b1fba969ec7799d0ea2d32d643acf7bab9be2d809dee0ffc051187fb17.zip",
         },
         "Environment": {
           "Variables": {
