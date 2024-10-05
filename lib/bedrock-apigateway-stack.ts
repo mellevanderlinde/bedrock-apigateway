@@ -16,12 +16,7 @@ export class BedrockApigatewayStack extends Stack {
     super(scope, id, props);
 
     const modelId = "anthropic.claude-3-haiku-20240307-v1:0";
-    const handler = this.createLambda(modelId);
-    const userPool = this.createUserPool();
-    this.createApi(handler, userPool);
-  }
 
-  createLambda(modelId: string): lambda.Function {
     const logGroup = new logs.LogGroup(this, "LogGroup", {
       retention: logs.RetentionDays.ONE_DAY,
       removalPolicy: RemovalPolicy.DESTROY,
@@ -46,10 +41,6 @@ export class BedrockApigatewayStack extends Stack {
       }),
     );
 
-    return handler;
-  }
-
-  createUserPool(): cognito.UserPool {
     const userPool = new cognito.UserPool(this, "UserPool", {
       signInAliases: {
         email: true,
@@ -71,13 +62,6 @@ export class BedrockApigatewayStack extends Stack {
       },
     });
 
-    return userPool;
-  }
-
-  createApi(
-    handler: lambda.Function,
-    userPool: cognito.UserPool,
-  ): apigateway.RestApi {
     const authorizer = new apigateway.CognitoUserPoolsAuthorizer(
       this,
       "Authorizer",
@@ -95,7 +79,5 @@ export class BedrockApigatewayStack extends Stack {
       authorizer,
       authorizationType: apigateway.AuthorizationType.COGNITO,
     });
-
-    return api;
   }
 }
