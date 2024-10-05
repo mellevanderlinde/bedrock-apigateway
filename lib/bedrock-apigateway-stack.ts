@@ -75,7 +75,7 @@ export class BedrockApigatewayStack extends Stack {
       proxy: false,
     });
 
-    api.root.addMethod("GET", undefined, {
+    api.root.addMethod("POST", undefined, {
       authorizer,
       authorizationType: apigateway.AuthorizationType.COGNITO,
     });

@@ -87,9 +87,9 @@ exports[`Match with snapshot 1`] = `
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
-    "ApiDeploymentB17BE62D9bff523437d0d6a480fea97b888edf85": {
+    "ApiDeploymentB17BE62D0fe7fcd8a78ea76090026bec7afeac58": {
       "DependsOn": [
-        "ApiGET9257B917",
+        "ApiPOST9384DEBA",
       ],
       "Properties": {
         "Description": "Automatically created by the RestApi construct",
@@ -105,7 +105,7 @@ exports[`Match with snapshot 1`] = `
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "ApiDeploymentB17BE62D9bff523437d0d6a480fea97b888edf85",
+          "Ref": "ApiDeploymentB17BE62D0fe7fcd8a78ea76090026bec7afeac58",
         },
         "RestApiId": {
           "Ref": "ApiF70053CD",
@@ -120,13 +120,13 @@ exports[`Match with snapshot 1`] = `
       },
       "Type": "AWS::ApiGateway::RestApi",
     },
-    "ApiGET9257B917": {
+    "ApiPOST9384DEBA": {
       "Properties": {
         "AuthorizationType": "COGNITO_USER_POOLS",
         "AuthorizerId": {
           "Ref": "AuthorizerBD825682",
         },
-        "HttpMethod": "GET",
+        "HttpMethod": "POST",
         "Integration": {
           "IntegrationHttpMethod": "POST",
           "Type": "AWS_PROXY",
@@ -166,7 +166,7 @@ exports[`Match with snapshot 1`] = `
       },
       "Type": "AWS::ApiGateway::Method",
     },
-    "ApiGETApiPermissionTestBedrockApigatewayStackApi3A7CC660GETF0F7D911": {
+    "ApiPOSTApiPermissionTestBedrockApigatewayStackApi3A7CC660POST8F8802F0": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -200,14 +200,14 @@ exports[`Match with snapshot 1`] = `
               {
                 "Ref": "ApiDeploymentStageprod3EB9684E",
               },
-              "/GET/",
+              "/POST/",
             ],
           ],
         },
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "ApiGETApiPermissionTestTestBedrockApigatewayStackApi3A7CC660GET970B4DF0": {
+    "ApiPOSTApiPermissionTestTestBedrockApigatewayStackApi3A7CC660POST55CC12B9": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -237,7 +237,7 @@ exports[`Match with snapshot 1`] = `
               {
                 "Ref": "ApiF70053CD",
               },
-              "/test-invoke-stage/GET/",
+              "/test-invoke-stage/POST/",
             ],
           ],
         },
@@ -273,7 +273,7 @@ exports[`Match with snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "91ee111d720206b530e99c44ca3d3a5b7774f804c7a64313b2df8aec51875ec1.zip",
+          "S3Key": "3be774514e95b6d74e69b8e5e89d55b7afbdaea6315e37de0d8a9ec902086c12.zip",
         },
         "Environment": {
           "Variables": {

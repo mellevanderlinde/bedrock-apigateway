@@ -19,7 +19,7 @@ Please be aware that the CloudFormation stack is deployed in the `eu-central-1` 
 To call the API, run the following:
 
 ```
-curl -X GET -G \
+curl -X POST -G \
     'https://<ApiEndpoint>.amazonaws.com/prod' \
     --data-urlencode 'prompt=Who is the CEO of AWS?' \
     --header 'Authorization: <IdToken>'
