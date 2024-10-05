@@ -15,7 +15,7 @@ export class BedrockApigatewayStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const modelId = "anthropic.claude-3-haiku-20240307-v1:0";
+    const modelId = "anthropic.claude-3-5-sonnet-20240620-v1:0";
 
     const logGroup = new logs.LogGroup(this, "LogGroup", {
       retention: logs.RetentionDays.ONE_DAY,
