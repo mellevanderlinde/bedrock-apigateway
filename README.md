@@ -7,7 +7,7 @@ This project is an integration between API Gateway and Bedrock. The calls to Bed
 To install the project's dependencies and deploy to AWS, run the following:
 
 ```
-npm install
+npm ci
 npm run build
 npm run cdk deploy 
 ```
