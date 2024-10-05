@@ -14,6 +14,7 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.145",
     "@types/jest": "^29.5.10",
     "@types/node": "^22.7.4",
     "@typescript-eslint/eslint-plugin": "^8.8.0",
@@ -29,7 +30,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.462.0",
-    "@types/aws-lambda": "^8.10.130",
     "aws-cdk-lib": "^2.112.0",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.21"
