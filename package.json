@@ -2,6 +2,8 @@
   "name": "bedrock-apigateway",
   "scripts": {
     "build": "turbo build",
+    "lint": "turbo lint",
+    "lint:fix": "turbo lint:fix",
     "test": "turbo test",
     "test:update": "turbo test:update"
   },

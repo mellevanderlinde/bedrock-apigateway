@@ -5,6 +5,8 @@
     "build": {
       "outputs": ["src/**/*.js", "src/**/*.d.ts"]
     },
+    "lint": {},
+    "lint:fix": {},
     "test": {
       "dependsOn": ["^test", "build"]
     },
