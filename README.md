@@ -9,7 +9,8 @@ To install the project's dependencies and deploy to AWS, run the following:
 ```
 npm ci
 npm run build
-npm run cdk deploy 
+cd apps/infra
+npx cdk deploy 
 ```
 
 Please be aware that the CloudFormation stack is deployed in the `eu-central-1` region, as Bedrock is currently unavailable in certain regions.
