@@ -11,6 +11,7 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
+    "@repo/eslint-config": "*",
     "aws-cdk": "^2.112.0",
     "jest": "^29.7.0",
     "ts-node": "^10.9.2",

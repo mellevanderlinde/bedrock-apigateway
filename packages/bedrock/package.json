@@ -2,12 +2,15 @@
   "name": "@repo/bedrock",
   "scripts": {
     "build": "tsc",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "jest"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.665.0"
   },
   "devDependencies": {
+    "@repo/eslint-config": "*",
     "@types/aws-lambda": "^8.10.145",
     "@types/jest": "^29.5.13",
     "@types/node": "^22.7.4",
