@@ -24,7 +24,7 @@ export class BedrockApigatewayStack extends Stack {
 
     const handler = new lambda.Function(this, "Lambda", {
       handler: "index.handler",
-      code: lambda.Code.fromAsset("src"),
+      code: lambda.Code.fromAsset("../../packages/bedrock/src"),
       runtime: lambda.Runtime.NODEJS_20_X,
       timeout: Duration.seconds(30),
       memorySize: 256,
