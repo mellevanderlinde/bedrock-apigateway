@@ -34,10 +34,5 @@ export const eslintConfig = [
     rules: {
       "prettier/prettier": ["error"],
     },
-  },
-  {
-    ignores: [
-      "**/*.d.ts",
-    ],
-  },
+  }
 ];
