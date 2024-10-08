@@ -1,4 +1,4 @@
-import { validateEvent } from "../../src/core/validate-event";
+import { validateEvent } from "@repo/bedrock/src/core/validate-event";
 
 it("should return prompt if it is present in the event", () => {
   const event = {

@@ -1,4 +1,4 @@
-import { BedrockModel } from "../../../src/model/bedrock/bedrock-model";
+import { BedrockModel } from "@repo/bedrock/src/model/bedrock/bedrock-model";
 
 it("should create a new BedrockModel instance", () => {
   process.env.MODEL_ID = "test-model-id";
