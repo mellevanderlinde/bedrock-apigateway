@@ -20,10 +20,11 @@ Please be aware that the CloudFormation stack is deployed in the `eu-central-1` 
 To call the API, run the following:
 
 ```
-curl -X POST -G \
-    'https://<ApiEndpoint>.amazonaws.com/prod' \
-    --data-urlencode 'prompt=Who is the CEO of AWS?' \
-    --header 'Authorization: <IdToken>'
+curl --header "Content-Type: text/plain" \
+     --header 'Authorization: <IdToken>' \
+     --request POST \
+     --data 'Who is the CEO of AWS?' \
+     'https://<ApiEndpoint>.amazonaws.com/prod'
 ```
 
 In the `curl` command `<ApiEndpoint>` should be the API endpoint output (which is printed in the terminal after deployment) and `<IdToken>` should be the ID Token from a registered user in Cognito.
