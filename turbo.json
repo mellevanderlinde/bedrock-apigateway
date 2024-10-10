@@ -11,7 +11,7 @@
       "dependsOn": ["^test", "build"]
     },
     "test:update": {
-      "dependsOn": ["^test", "build"]
+      "dependsOn": ["^test:update", "build"]
     }
   }
 }
