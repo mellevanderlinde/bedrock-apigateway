@@ -11,5 +11,8 @@ it("should return prompt if it is present in the event", () => {
 
 it("should throw an error if prompt is missing", () => {
   const event = { queryStringParameters: {} };
-  expect(() => validateEvent(event as never)).toThrow("Prompt is missing");
+  expect(validateEvent(event as never)).toStrictEqual({
+    statusCode: 400,
+    body: "Prompt is missing",
+  });
 });

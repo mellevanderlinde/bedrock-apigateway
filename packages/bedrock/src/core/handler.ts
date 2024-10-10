@@ -11,7 +11,11 @@ export class ModelHandler {
 
   async handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
     const prompt = validateEvent(event);
-    const response = await this.model.getResponse(prompt);
-    return { statusCode: 200, body: response };
+    if (typeof prompt === "string") {
+      const response = await this.model.getResponse(prompt);
+      return { statusCode: 200, body: response };
+    } else {
+      return prompt;
+    }
   }
 }
