@@ -1,5 +1,9 @@
 {
   "name": "@repo/eslint-config",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "devDependencies": {
     "@eslint/compat": "^1.2.0",
     "@eslint/eslintrc": "^3.1.0",

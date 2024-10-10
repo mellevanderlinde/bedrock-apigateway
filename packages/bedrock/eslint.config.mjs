@@ -1,7 +1,7 @@
-import { eslintConfig } from "@repo/eslint-config/eslint.config.mjs";
+import config from "@repo/eslint-config/eslint.config.mjs";
 
 export default [
-  ...eslintConfig,
+  ...config,
   {
     ignores: ["**/src/**/*.js", "**/src/**/*.d.ts"],
   },

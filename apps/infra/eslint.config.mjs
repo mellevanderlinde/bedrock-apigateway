@@ -1,3 +1,3 @@
-import { eslintConfig } from "@repo/eslint-config/eslint.config.mjs";
+import config from "@repo/eslint-config/eslint.config.mjs";
 
-export default [...eslintConfig, { ignores: ["**/cdk.out/**"] }];
+export default [...config, { ignores: ["**/cdk.out/**"] }];

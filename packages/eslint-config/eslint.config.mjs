@@ -16,7 +16,7 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
-export const eslintConfig = [
+export default [
   ...compat.extends(
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -34,5 +34,5 @@ export const eslintConfig = [
     rules: {
       "prettier/prettier": ["error"],
     },
-  }
+  },
 ];
