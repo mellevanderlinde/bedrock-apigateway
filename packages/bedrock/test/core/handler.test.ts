@@ -1,4 +1,4 @@
-import { ModelHandler } from "@repo/bedrock/src/core/handler";
+import { ModelHandler } from "src/core/handler";
 import { LocalModel } from "../model/local/local-model";
 
 it("should return a 200 response when prompt is provided", async () => {

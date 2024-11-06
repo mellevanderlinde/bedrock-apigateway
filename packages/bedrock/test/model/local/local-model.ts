@@ -1,4 +1,4 @@
-import { LanguageModel } from "@repo/bedrock/src/model/language-model";
+import { LanguageModel } from "src/model/language-model";
 
 export class LocalModel implements LanguageModel {
   private readonly response: string;

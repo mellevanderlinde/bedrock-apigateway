@@ -1,4 +1,4 @@
-import { validateEvent } from "@repo/bedrock/src/core/validate-event";
+import { validateEvent } from "src/core/validate-event";
 
 it("should return prompt if present in the event body", () => {
   const event = { body: "test-prompt" };

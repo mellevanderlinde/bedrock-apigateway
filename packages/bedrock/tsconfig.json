@@ -6,6 +6,7 @@
       "es2020",
       "dom"
     ],
+    "baseUrl": ".",
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -20,14 +21,15 @@
     "inlineSources": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-    "typeRoots": [
-      "./../../node_modules/@types"
-    ]
+    "paths": {
+      "src/*": ["src/*"]
+    }
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "test/**/*.ts"
   ]
 }
