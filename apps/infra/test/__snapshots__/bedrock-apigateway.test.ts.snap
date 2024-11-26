@@ -269,6 +269,9 @@ exports[`should match with snapshot 1`] = `
         "LambdaServiceRoleA8ED4D3B",
       ],
       "Properties": {
+        "Architectures": [
+          "arm64",
+        ],
         "Code": {
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
@@ -293,7 +296,7 @@ exports[`should match with snapshot 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs20.x",
+        "Runtime": "nodejs22.x",
         "Timeout": 30,
       },
       "Type": "AWS::Lambda::Function",
