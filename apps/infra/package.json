@@ -13,6 +13,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "aws-cdk": "^2.171.0",
+    "esbuild": "^0.24.0",
     "eslint-config": "workspace:*",
     "jest": "^29.7.0",
     "ts-node": "^10.9.2",

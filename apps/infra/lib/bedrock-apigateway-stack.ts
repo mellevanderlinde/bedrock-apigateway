@@ -4,6 +4,7 @@ import {
   Duration,
   RemovalPolicy,
   aws_lambda as lambda,
+  aws_lambda_nodejs as lambda_nodejs,
   aws_logs as logs,
   aws_iam as iam,
   aws_apigateway as apigateway,
@@ -22,9 +23,8 @@ export class BedrockApigatewayStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    const handler = new lambda.Function(this, "Lambda", {
-      handler: "index.handler",
-      code: lambda.Code.fromAsset("../../packages/bedrock/src"),
+    const handler = new lambda_nodejs.NodejsFunction(this, "Lambda", {
+      entry: "../../packages/bedrock/src/index.ts",
       runtime: lambda.Runtime.NODEJS_22_X,
       architecture: lambda.Architecture.ARM_64,
       timeout: Duration.seconds(30),

@@ -8,7 +8,6 @@ To install the project's dependencies and deploy to AWS, run the following:
 
 ```
 pnpm install
-pnpm build
 cd apps/infra
 npx cdk deploy 
 ```

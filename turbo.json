@@ -2,16 +2,10 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "tasks": {
-    "build": {
-      "outputs": ["src/**/*.js", "src/**/*.d.ts"]
-    },
+    "build": {},
     "lint": {},
     "lint:fix": {},
-    "test": {
-      "dependsOn": ["^test", "build"]
-    },
-    "test:update": {
-      "dependsOn": ["^test:update", "build"]
-    }
+    "test": {},
+    "test:update": {}
   }
 }
