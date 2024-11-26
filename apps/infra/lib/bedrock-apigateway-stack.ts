@@ -8,6 +8,7 @@ import {
   aws_logs as logs,
   aws_iam as iam,
   aws_apigateway as apigateway,
+  aws_bedrock as bedrock,
   aws_cognito as cognito,
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
@@ -16,7 +17,12 @@ export class BedrockApigatewayStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const modelId = "anthropic.claude-3-5-sonnet-20240620-v1:0";
+    const model = bedrock.FoundationModel.fromFoundationModelId(
+      this,
+      "Model",
+      bedrock.FoundationModelIdentifier
+        .ANTHROPIC_CLAUDE_3_5_SONNET_20240620_V1_0,
+    );
 
     const logGroup = new logs.LogGroup(this, "LogGroup", {
       retention: logs.RetentionDays.ONE_DAY,
@@ -29,16 +35,14 @@ export class BedrockApigatewayStack extends Stack {
       architecture: lambda.Architecture.ARM_64,
       timeout: Duration.seconds(30),
       memorySize: 256,
-      environment: { MODEL_ID: modelId },
+      environment: { MODEL_ID: model.modelId },
       logGroup,
     });
 
     handler.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ["bedrock:InvokeModel"],
-        resources: [
-          `arn:aws:bedrock:${this.region}::foundation-model/${modelId}`,
-        ],
+        resources: [model.modelArn],
       }),
     );
 

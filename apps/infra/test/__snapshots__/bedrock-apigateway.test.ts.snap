@@ -343,7 +343,11 @@ exports[`should match with snapshot 1`] = `
                 "Fn::Join": [
                   "",
                   [
-                    "arn:aws:bedrock:",
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":bedrock:",
                     {
                       "Ref": "AWS::Region",
                     },
