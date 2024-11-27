@@ -35,6 +35,7 @@ export class BedrockApigatewayStack extends Stack {
       architecture: lambda.Architecture.ARM_64,
       timeout: Duration.seconds(30),
       memorySize: 256,
+      bundling: { minify: true },
       environment: { MODEL_ID: model.modelId },
       logGroup,
     });
