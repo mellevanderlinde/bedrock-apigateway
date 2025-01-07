@@ -1,3 +1,4 @@
+import { it, expect } from "vitest";
 import { BedrockModel } from "src/model/bedrock/bedrock-model";
 
 it("should create a new BedrockModel instance", () => {

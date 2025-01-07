@@ -1,3 +1,4 @@
+import { it, expect } from "vitest";
 import { ModelHandler } from "src/core/handler";
 import { LocalModel } from "../model/local/local-model";
 

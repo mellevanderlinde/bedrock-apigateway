@@ -1,3 +1,4 @@
+import { it, expect } from "vitest";
 import { App, assertions } from "aws-cdk-lib";
 import { BedrockApigatewayStack } from "../lib/bedrock-apigateway-stack";
 

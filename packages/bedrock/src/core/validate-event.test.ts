@@ -1,3 +1,4 @@
+import { it, expect } from "vitest";
 import { validateEvent } from "src/core/validate-event";
 
 it("should return prompt if present in the event body", () => {
