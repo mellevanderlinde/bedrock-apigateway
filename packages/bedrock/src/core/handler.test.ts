@@ -1,6 +1,6 @@
-import { it, expect } from "vitest";
-import { ModelHandler } from "src/core/handler";
+import { expect, it } from "vitest";
 import { LocalModel } from "../model/local/local-model";
+import { ModelHandler } from "./handler";
 
 it("should return a 200 response when prompt is provided", async () => {
   const model = new LocalModel("test-response");

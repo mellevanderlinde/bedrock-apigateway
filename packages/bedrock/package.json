@@ -2,7 +2,6 @@
   "name": "bedrock",
   "scripts": {
     "build": "tsc --noEmit",
-    "lint": "eslint .",
     "test": "vitest run"
   },
   "dependencies": {
@@ -11,7 +10,6 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.147",
     "@types/node": "^22.10.5",
-    "eslint-config": "workspace:*",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   }

@@ -1,5 +1,5 @@
-import { it, expect } from "vitest";
 import { App, assertions } from "aws-cdk-lib";
+import { expect, it } from "vitest";
 import { BedrockApigatewayStack } from "../lib/bedrock-apigateway-stack";
 
 it("should match with snapshot", () => {

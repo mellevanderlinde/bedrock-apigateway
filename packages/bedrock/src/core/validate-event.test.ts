@@ -1,5 +1,5 @@
-import { it, expect } from "vitest";
-import { validateEvent } from "src/core/validate-event";
+import { expect, it } from "vitest";
+import { validateEvent } from "./validate-event";
 
 it("should return prompt if present in the event body", () => {
   const event = { body: "test-prompt" };

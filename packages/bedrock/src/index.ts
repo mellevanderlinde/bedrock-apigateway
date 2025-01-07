@@ -1,10 +1,10 @@
-import {
-  Handler,
-  APIGatewayProxyResult,
+import type {
   APIGatewayProxyEvent,
+  APIGatewayProxyResult,
+  Handler,
 } from "aws-lambda";
-import { BedrockModel } from "./model/bedrock/bedrock-model";
 import { ModelHandler } from "./core/handler";
+import { BedrockModel } from "./model/bedrock/bedrock-model";
 
 const model = new BedrockModel();
 const handler_ = new ModelHandler(model);

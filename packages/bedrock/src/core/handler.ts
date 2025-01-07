@@ -1,6 +1,6 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import type { LanguageModel } from "../model/language-model";
 import { validateEvent } from "./validate-event";
-import { LanguageModel } from "../model/language-model";
 
 export class ModelHandler {
   private readonly model: LanguageModel;
@@ -14,8 +14,7 @@ export class ModelHandler {
     if (typeof prompt === "string") {
       const response = await this.model.getResponse(prompt);
       return { statusCode: 200, body: response };
-    } else {
-      return prompt;
     }
+    return prompt;
   }
 }

@@ -2,7 +2,7 @@ import {
   BedrockRuntimeClient,
   InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
-import { LanguageModel } from "../language-model";
+import type { LanguageModel } from "../language-model";
 
 export class BedrockModel implements LanguageModel {
   private client: BedrockRuntimeClient;

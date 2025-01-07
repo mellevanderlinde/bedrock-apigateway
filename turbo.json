@@ -3,7 +3,7 @@
   "ui": "tui",
   "tasks": {
     "build": {},
-    "lint": {},
+    "//#lint": {},
     "test": {},
     "test:update": {}
   }

@@ -1,13 +1,12 @@
-import { it, expect } from "vitest";
-import { BedrockModel } from "src/model/bedrock/bedrock-model";
+import { expect, it } from "vitest";
+import { BedrockModel } from "./bedrock-model";
+
+it("should throw an error if MODEL_ID is missing", () => {
+  expect(() => new BedrockModel()).toThrow("MODEL_ID is missing");
+});
 
 it("should create a new BedrockModel instance", () => {
   process.env.MODEL_ID = "test-model-id";
   const model = new BedrockModel();
   expect(model).toBeDefined();
-});
-
-it("should throw an error if MODEL_ID is missing", () => {
-  delete process.env.MODEL_ID;
-  expect(() => new BedrockModel()).toThrow("MODEL_ID is missing");
 });

@@ -2,9 +2,11 @@
   "name": "bedrock-apigateway",
   "scripts": {
     "ci": "turbo lint build test",
+    "lint": "biome check",
     "test:update": "turbo test:update"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "turbo": "^2.3.3"
   },
   "packageManager": "pnpm@9.15.3"

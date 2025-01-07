@@ -1,4 +1,4 @@
-import { LanguageModel } from "src/model/language-model";
+import type { LanguageModel } from "../language-model";
 
 export class LocalModel implements LanguageModel {
   private readonly response: string;
