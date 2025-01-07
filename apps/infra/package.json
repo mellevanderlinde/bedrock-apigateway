@@ -5,6 +5,7 @@
     "bedrock-apigateway": "bin/bedrock-apigateway.js"
   },
   "scripts": {
+    "build": "tsc --noEmit",
     "test": "vitest run",
     "test:update": "vitest run -u",
     "lint": "eslint ."
