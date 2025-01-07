@@ -4,7 +4,6 @@
   "tasks": {
     "build": {},
     "lint": {},
-    "lint:fix": {},
     "test": {},
     "test:update": {}
   }

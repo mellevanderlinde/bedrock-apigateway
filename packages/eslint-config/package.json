@@ -1,8 +1,7 @@
 {
   "name": "eslint-config",
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.3",

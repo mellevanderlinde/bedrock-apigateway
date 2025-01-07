@@ -1,14 +1,11 @@
 {
   "name": "bedrock-apigateway",
   "scripts": {
-    "build": "turbo build",
-    "lint": "turbo lint",
-    "lint:fix": "turbo lint:fix",
-    "test": "turbo test",
+    "ci": "turbo lint build test",
     "test:update": "turbo test:update"
   },
   "devDependencies": {
     "turbo": "^2.3.2"
   },
-  "packageManager": "pnpm@9.14.2"
+  "packageManager": "pnpm@9.15.3"
 }
