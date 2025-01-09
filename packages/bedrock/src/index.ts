@@ -9,7 +9,7 @@ import { BedrockModel } from "./model/bedrock/bedrock-model";
 const model = new BedrockModel();
 const handler_ = new ModelHandler(model);
 
-export const handler: Handler = async (
+export const handler: Handler = (
   event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> => {
   return handler_.handler(event);

@@ -19,7 +19,12 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "all": true,
+      "correctness": {
+        "noUndeclaredDependencies": "off",
+        "useImportExtensions": "off"
+      },
+      "style": { "useNamingConvention": "off" }
     }
   },
   "javascript": {

@@ -2,7 +2,7 @@
   "name": "bedrock-apigateway",
   "scripts": {
     "ci": "turbo lint build test",
-    "lint": "biome check",
+    "lint": "biome check --error-on-warnings",
     "test:update": "turbo test:update"
   },
   "devDependencies": {
