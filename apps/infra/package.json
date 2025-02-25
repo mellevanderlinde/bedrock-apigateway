@@ -10,14 +10,14 @@
     "test:update": "vitest run -u"
   },
   "devDependencies": {
-    "aws-cdk": "^2.174.1",
-    "esbuild": "^0.24.2",
+    "aws-cdk": "^2.1000.3",
+    "esbuild": "^0.25.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.174.1",
+    "aws-cdk-lib": "^2.180.0",
     "bedrock": "workspace:*",
     "constructs": "^10.4.2"
   }

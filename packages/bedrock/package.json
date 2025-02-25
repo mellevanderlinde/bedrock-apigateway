@@ -5,12 +5,12 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@aws-sdk/client-bedrock-runtime": "^3.723.0"
+    "@aws-sdk/client-bedrock-runtime": "^3.755.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.147",
-    "@types/node": "^22.10.5",
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "@types/node": "^22.13.5",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
   }
 }
