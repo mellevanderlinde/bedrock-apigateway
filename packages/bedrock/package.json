@@ -1,7 +1,7 @@
 {
   "name": "bedrock",
   "scripts": {
-    "build": "tsc --noEmit",
+    "build": "tsc",
     "test": "vitest run"
   },
   "dependencies": {
