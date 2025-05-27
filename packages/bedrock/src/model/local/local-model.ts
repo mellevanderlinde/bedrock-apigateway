@@ -7,7 +7,6 @@ export class LocalModel implements LanguageModel {
     this.response = response;
   }
 
-  // biome-ignore lint/suspicious/useAwait: required by interface
   async getResponse(): Promise<string> {
     return this.response;
   }

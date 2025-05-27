@@ -1,17 +1,17 @@
+import type { StackProps } from "aws-cdk-lib";
+import type { Construct } from "constructs";
 import {
-  Duration,
-  RemovalPolicy,
-  Stack,
-  type StackProps,
   aws_apigateway as apigateway,
   aws_bedrock as bedrock,
   aws_cognito as cognito,
+  Duration,
   aws_iam as iam,
   aws_lambda as lambda,
   aws_lambda_nodejs as lambda_nodejs,
   aws_logs as logs,
+  RemovalPolicy,
+  Stack,
 } from "aws-cdk-lib";
-import type { Construct } from "constructs";
 
 export class BedrockApigatewayStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

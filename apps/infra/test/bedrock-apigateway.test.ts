@@ -1,7 +1,7 @@
 import { App } from "aws-cdk-lib";
+import { Template } from "aws-cdk-lib/assertions";
 import { expect, it } from "vitest";
 import { BedrockApigatewayStack } from "../lib/bedrock-apigateway-stack";
-import { Template } from "aws-cdk-lib/assertions";
 
 it("should match with snapshot", () => {
   const app = new App();

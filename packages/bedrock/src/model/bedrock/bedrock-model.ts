@@ -1,8 +1,8 @@
+import type { LanguageModel } from "../language-model";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
-import type { LanguageModel } from "../language-model";
 
 export class BedrockModel implements LanguageModel {
   private client: BedrockRuntimeClient;
@@ -11,6 +11,7 @@ export class BedrockModel implements LanguageModel {
   constructor(client?: BedrockRuntimeClient) {
     this.client = client || new BedrockRuntimeClient();
 
+    // eslint-disable-next-line node/prefer-global/process
     const modelId = process.env.MODEL_ID;
     if (!modelId) {
       throw new Error("MODEL_ID is missing");

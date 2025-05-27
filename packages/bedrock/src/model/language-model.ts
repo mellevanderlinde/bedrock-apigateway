@@ -1,3 +1,3 @@
 export interface LanguageModel {
-  getResponse(prompt: string): Promise<string>;
+  getResponse: (prompt: string) => Promise<string>;
 }

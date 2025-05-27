@@ -9,7 +9,7 @@ To install the project's dependencies and deploy to AWS, run the following:
 ```
 pnpm install
 cd apps/infra
-npx cdk deploy 
+npx cdk deploy
 ```
 
 Please be aware that the CloudFormation stack is deployed in the `eu-central-1` region, as Bedrock is currently unavailable in certain regions.
@@ -28,7 +28,7 @@ curl --header "Content-Type: text/plain" \
 
 In the `curl` command `<ApiEndpoint>` should be the API endpoint output (which is printed in the terminal after deployment) and `<IdToken>` should be the ID Token from a registered user in Cognito.
 
-Example response: 
+Example response:
 
 ```
 The CEO of Amazon Web Services (AWS) is Adam Selipsky. He became CEO of AWS in 2021, replacing Andy Jassy who became CEO of Amazon.

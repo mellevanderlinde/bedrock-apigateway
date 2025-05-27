@@ -1,13 +1,14 @@
 {
   "name": "bedrock-apigateway",
+  "packageManager": "pnpm@10.5.2",
   "scripts": {
     "ci": "turbo lint build test",
-    "lint": "biome check --error-on-warnings",
+    "lint": "eslint",
     "test:update": "turbo test:update"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@antfu/eslint-config": "^4.13.2",
+    "eslint": "^9.27.0",
     "turbo": "^2.5.3"
-  },
-  "packageManager": "pnpm@10.5.2"
+  }
 }
