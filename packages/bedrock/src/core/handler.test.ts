@@ -17,5 +17,5 @@ it("should return a 400 response when prompt is missing", async () => {
   const event = {};
   const response = await handler.handler(event as never);
   expect(response.statusCode).toBe(400);
-  expect(response.body).toBe("Prompt is missing");
+  expect(response.body).toBe("✖ Invalid input: expected string, received undefined\n  → at body");
 });
