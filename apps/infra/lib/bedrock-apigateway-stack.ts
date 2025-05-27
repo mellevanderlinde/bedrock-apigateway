@@ -1,38 +1,33 @@
 import type { StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
-import {
-  aws_apigateway as apigateway,
-  aws_bedrock as bedrock,
-  aws_cognito as cognito,
-  Duration,
-  aws_iam as iam,
-  aws_lambda as lambda,
-  aws_lambda_nodejs as lambda_nodejs,
-  aws_logs as logs,
-  RemovalPolicy,
-  Stack,
-} from "aws-cdk-lib";
+import { Duration, RemovalPolicy, Stack } from "aws-cdk-lib";
+import { AuthorizationType, CognitoUserPoolsAuthorizer, LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
+import { FoundationModel, FoundationModelIdentifier } from "aws-cdk-lib/aws-bedrock";
+import { UserPool } from "aws-cdk-lib/aws-cognito";
+import { PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { Architecture, Runtime } from "aws-cdk-lib/aws-lambda";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
 
 export class BedrockApigatewayStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const model = bedrock.FoundationModel.fromFoundationModelId(
+    const model = FoundationModel.fromFoundationModelId(
       this,
       "Model",
-      bedrock.FoundationModelIdentifier
-        .ANTHROPIC_CLAUDE_3_5_SONNET_20240620_V1_0,
+      FoundationModelIdentifier.ANTHROPIC_CLAUDE_3_5_SONNET_20240620_V1_0,
     );
 
-    const logGroup = new logs.LogGroup(this, "LogGroup", {
-      retention: logs.RetentionDays.ONE_DAY,
+    const logGroup = new LogGroup(this, "LogGroup", {
+      retention: RetentionDays.ONE_DAY,
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    const handler = new lambda_nodejs.NodejsFunction(this, "Lambda", {
+    const handler = new NodejsFunction(this, "Lambda", {
       entry: "../../packages/bedrock/src/index.ts",
-      runtime: lambda.Runtime.NODEJS_22_X,
-      architecture: lambda.Architecture.ARM_64,
+      runtime: Runtime.NODEJS_22_X,
+      architecture: Architecture.ARM_64,
       timeout: Duration.seconds(30),
       memorySize: 256,
       bundling: { minify: true },
@@ -41,13 +36,13 @@ export class BedrockApigatewayStack extends Stack {
     });
 
     handler.addToRolePolicy(
-      new iam.PolicyStatement({
+      new PolicyStatement({
         actions: ["bedrock:InvokeModel"],
         resources: [model.modelArn],
       }),
     );
 
-    const userPool = new cognito.UserPool(this, "UserPool", {
+    const userPool = new UserPool(this, "UserPool", {
       signInAliases: {
         email: true,
         username: false,
@@ -68,7 +63,7 @@ export class BedrockApigatewayStack extends Stack {
       },
     });
 
-    const authorizer = new apigateway.CognitoUserPoolsAuthorizer(
+    const authorizer = new CognitoUserPoolsAuthorizer(
       this,
       "Authorizer",
       {
@@ -76,14 +71,14 @@ export class BedrockApigatewayStack extends Stack {
       },
     );
 
-    const api = new apigateway.LambdaRestApi(this, "Api", {
+    const api = new LambdaRestApi(this, "Api", {
       handler,
       proxy: false,
     });
 
     api.root.addMethod("POST", undefined, {
       authorizer,
-      authorizationType: apigateway.AuthorizationType.COGNITO,
+      authorizationType: AuthorizationType.COGNITO,
     });
   }
 }
