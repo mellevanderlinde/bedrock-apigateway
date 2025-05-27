@@ -1,6 +1,10 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import type { LanguageModel } from "../model/language-model";
-import { validateEvent } from "./validate-event";
+import { z } from "zod/v4";
+
+const Event = z.object({
+  body: z.string().min(1),
+});
 
 export class ModelHandler {
   private readonly model: LanguageModel;
@@ -10,13 +14,13 @@ export class ModelHandler {
   }
 
   async handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-    const promptOrError = validateEvent(event);
+    const { success, data, error } = Event.safeParse(event);
 
-    if (typeof promptOrError === "string") { // valid prompt
-      const response = await this.model.getResponse(promptOrError);
+    if (success) { // valid prompt
+      const response = await this.model.getResponse(data.body);
       return { statusCode: 200, body: response };
     }
 
-    return promptOrError; // error response
+    return { statusCode: 400, body: z.prettifyError(error) }; // error response
   }
 }
