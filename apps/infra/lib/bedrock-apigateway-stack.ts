@@ -1,6 +1,6 @@
 import type { StackProps } from "aws-cdk-lib";
 import type { Construct } from "constructs";
-import { Duration, RemovalPolicy, Stack } from "aws-cdk-lib";
+import { Duration, Stack } from "aws-cdk-lib";
 import { AuthorizationType, CognitoUserPoolsAuthorizer, LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
 import { FoundationModel, FoundationModelIdentifier } from "aws-cdk-lib/aws-bedrock";
 import { UserPool } from "aws-cdk-lib/aws-cognito";
@@ -21,7 +21,6 @@ export class BedrockApigatewayStack extends Stack {
 
     const logGroup = new LogGroup(this, "LogGroup", {
       retention: RetentionDays.ONE_DAY,
-      removalPolicy: RemovalPolicy.DESTROY,
     });
 
     const handler = new NodejsFunction(this, "Lambda", {
@@ -48,7 +47,6 @@ export class BedrockApigatewayStack extends Stack {
         username: false,
       },
       selfSignUpEnabled: true,
-      removalPolicy: RemovalPolicy.DESTROY,
     });
 
     userPool.addClient("Client", {

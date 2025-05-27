@@ -39,7 +39,7 @@ exports[`should match with snapshot 1`] = `
   },
   "Resources": {
     "ApiAccountA18C9B29": {
-      "DeletionPolicy": "Retain",
+      "DeletionPolicy": "Delete",
       "DependsOn": [
         "ApiF70053CD",
       ],
@@ -52,10 +52,10 @@ exports[`should match with snapshot 1`] = `
         },
       },
       "Type": "AWS::ApiGateway::Account",
-      "UpdateReplacePolicy": "Retain",
+      "UpdateReplacePolicy": "Delete",
     },
     "ApiCloudWatchRole73EC6FC4": {
-      "DeletionPolicy": "Retain",
+      "DeletionPolicy": "Delete",
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -85,9 +85,10 @@ exports[`should match with snapshot 1`] = `
         ],
       },
       "Type": "AWS::IAM::Role",
-      "UpdateReplacePolicy": "Retain",
+      "UpdateReplacePolicy": "Delete",
     },
-    "ApiDeploymentB17BE62D0fe7fcd8a78ea76090026bec7afeac58": {
+    "ApiDeploymentB17BE62Dda4a3c1c0f891ffa2b34b121b922c927": {
+      "DeletionPolicy": "Delete",
       "DependsOn": [
         "ApiPOST9384DEBA",
       ],
@@ -98,14 +99,16 @@ exports[`should match with snapshot 1`] = `
         },
       },
       "Type": "AWS::ApiGateway::Deployment",
+      "UpdateReplacePolicy": "Delete",
     },
     "ApiDeploymentStageprod3EB9684E": {
+      "DeletionPolicy": "Delete",
       "DependsOn": [
         "ApiAccountA18C9B29",
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "ApiDeploymentB17BE62D0fe7fcd8a78ea76090026bec7afeac58",
+          "Ref": "ApiDeploymentB17BE62Dda4a3c1c0f891ffa2b34b121b922c927",
         },
         "RestApiId": {
           "Ref": "ApiF70053CD",
@@ -113,14 +116,18 @@ exports[`should match with snapshot 1`] = `
         "StageName": "prod",
       },
       "Type": "AWS::ApiGateway::Stage",
+      "UpdateReplacePolicy": "Delete",
     },
     "ApiF70053CD": {
+      "DeletionPolicy": "Delete",
       "Properties": {
         "Name": "Api",
       },
       "Type": "AWS::ApiGateway::RestApi",
+      "UpdateReplacePolicy": "Delete",
     },
     "ApiPOST9384DEBA": {
+      "DeletionPolicy": "Delete",
       "Properties": {
         "AuthorizationType": "COGNITO_USER_POOLS",
         "AuthorizerId": {
@@ -165,8 +172,10 @@ exports[`should match with snapshot 1`] = `
         },
       },
       "Type": "AWS::ApiGateway::Method",
+      "UpdateReplacePolicy": "Delete",
     },
     "ApiPOSTApiPermissionStackApiDBBEC0DBPOST637FF6AF": {
+      "DeletionPolicy": "Delete",
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -206,8 +215,10 @@ exports[`should match with snapshot 1`] = `
         },
       },
       "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
     },
     "ApiPOSTApiPermissionTestStackApiDBBEC0DBPOST5D85DE27": {
+      "DeletionPolicy": "Delete",
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -243,8 +254,10 @@ exports[`should match with snapshot 1`] = `
         },
       },
       "Type": "AWS::Lambda::Permission",
+      "UpdateReplacePolicy": "Delete",
     },
     "AuthorizerBD825682": {
+      "DeletionPolicy": "Delete",
       "Properties": {
         "IdentitySource": "method.request.header.Authorization",
         "Name": "StackAuthorizer14903EF1",
@@ -262,8 +275,10 @@ exports[`should match with snapshot 1`] = `
         "Type": "COGNITO_USER_POOLS",
       },
       "Type": "AWS::ApiGateway::Authorizer",
+      "UpdateReplacePolicy": "Delete",
     },
     "LambdaD247545B": {
+      "DeletionPolicy": "Delete",
       "DependsOn": [
         "LambdaServiceRoleDefaultPolicyDAE46E21",
         "LambdaServiceRoleA8ED4D3B",
@@ -300,8 +315,10 @@ exports[`should match with snapshot 1`] = `
         "Timeout": 30,
       },
       "Type": "AWS::Lambda::Function",
+      "UpdateReplacePolicy": "Delete",
     },
     "LambdaServiceRoleA8ED4D3B": {
+      "DeletionPolicy": "Delete",
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -331,8 +348,10 @@ exports[`should match with snapshot 1`] = `
         ],
       },
       "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Delete",
     },
     "LambdaServiceRoleDefaultPolicyDAE46E21": {
+      "DeletionPolicy": "Delete",
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -367,6 +386,7 @@ exports[`should match with snapshot 1`] = `
         ],
       },
       "Type": "AWS::IAM::Policy",
+      "UpdateReplacePolicy": "Delete",
     },
     "LogGroupF5B46931": {
       "DeletionPolicy": "Delete",
@@ -414,6 +434,7 @@ exports[`should match with snapshot 1`] = `
       "UpdateReplacePolicy": "Delete",
     },
     "UserPoolClient43258C81": {
+      "DeletionPolicy": "Delete",
       "Properties": {
         "AllowedOAuthFlows": [
           "implicit",
@@ -442,8 +463,10 @@ exports[`should match with snapshot 1`] = `
         },
       },
       "Type": "AWS::Cognito::UserPoolClient",
+      "UpdateReplacePolicy": "Delete",
     },
     "UserPoolDomainD0EA232A": {
+      "DeletionPolicy": "Delete",
       "Properties": {
         "Domain": "bedrock-apigateway",
         "UserPoolId": {
@@ -451,6 +474,7 @@ exports[`should match with snapshot 1`] = `
         },
       },
       "Type": "AWS::Cognito::UserPoolDomain",
+      "UpdateReplacePolicy": "Delete",
     },
   },
   "Rules": {
