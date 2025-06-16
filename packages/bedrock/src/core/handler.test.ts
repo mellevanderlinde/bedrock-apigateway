@@ -23,5 +23,5 @@ it("should return a 400 response when body is empty", async () => {
   const event = { body: "" };
   const response = await handler.handler(event as never);
   expect(response.statusCode).toBe(400);
-  expect(response.body).toBe("✖ Too small: expected string to have >1 characters\n  → at body");
+  expect(response.body).toBe("✖ Too small: expected string to have >=1 characters\n  → at body");
 });
