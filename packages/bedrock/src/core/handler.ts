@@ -17,7 +17,7 @@ export class ModelHandler {
     const { success, data, error } = Event.safeParse(event);
 
     if (success) { // valid prompt
-      const response = await this.model.getResponse(data.body);
+      const response = await this.model.invoke(data.body);
       return { statusCode: 200, body: response };
     }
 

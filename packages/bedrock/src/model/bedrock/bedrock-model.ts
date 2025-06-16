@@ -1,16 +1,16 @@
 import type { LanguageModel } from "../language-model";
-import {
-  BedrockRuntimeClient,
-  InvokeModelCommand,
-} from "@aws-sdk/client-bedrock-runtime";
+import { createAmazonBedrock } from "@ai-sdk/amazon-bedrock";
+import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
+import { generateText } from "ai";
+
+const bedrock = createAmazonBedrock({
+  credentialProvider: fromNodeProviderChain(),
+});
 
 export class BedrockModel implements LanguageModel {
-  private client: BedrockRuntimeClient;
   private modelId: string;
 
-  constructor(client?: BedrockRuntimeClient) {
-    this.client = client || new BedrockRuntimeClient();
-
+  constructor() {
     // eslint-disable-next-line node/prefer-global/process
     const modelId = process.env.MODEL_ID;
     if (!modelId) {
@@ -19,29 +19,11 @@ export class BedrockModel implements LanguageModel {
     this.modelId = modelId;
   }
 
-  async getResponse(prompt: string): Promise<string> {
-    const payload = {
-      anthropic_version: "bedrock-2023-05-31",
-      max_tokens: 100,
-      messages: [
-        {
-          role: "user",
-          content: [{ type: "text", text: prompt }],
-        },
-      ],
-    };
-
-    const command = new InvokeModelCommand({
-      modelId: this.modelId,
-      contentType: "application/json",
-      body: JSON.stringify(payload),
+  async invoke(prompt: string): Promise<string> {
+    const { text } = await generateText({
+      model: bedrock(this.modelId),
+      prompt,
     });
-
-    const response = await this.client.send(command);
-
-    const decodedResponseBody = new TextDecoder().decode(response.body);
-    const responseBody = JSON.parse(decodedResponseBody);
-
-    return responseBody.content[0].text;
+    return text;
   }
 }

@@ -7,7 +7,7 @@ export class LocalModel implements LanguageModel {
     this.response = response;
   }
 
-  async getResponse(): Promise<string> {
+  async invoke(): Promise<string> {
     return this.response;
   }
 }
