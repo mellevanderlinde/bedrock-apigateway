@@ -1,14 +1,14 @@
 {
   "name": "bedrock-apigateway",
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.13.1",
   "scripts": {
     "ci": "turbo lint build test",
     "lint": "eslint",
     "test:update": "turbo test:update"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.14.1",
-    "eslint": "^9.29.0",
-    "turbo": "^2.5.4"
+    "@antfu/eslint-config": "^5.0.0",
+    "eslint": "^9.32.0",
+    "turbo": "^2.5.5"
   }
 }
