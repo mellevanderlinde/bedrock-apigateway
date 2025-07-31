@@ -12,11 +12,9 @@ export class BedrockModel implements LanguageModel {
 
   constructor() {
     // eslint-disable-next-line node/prefer-global/process
-    const modelId = process.env.MODEL_ID;
-    if (!modelId) {
+    this.modelId = process.env.MODEL_ID || (() => {
       throw new Error("MODEL_ID is missing");
-    }
-    this.modelId = modelId;
+    })();
   }
 
   async invoke(prompt: string): Promise<string> {
